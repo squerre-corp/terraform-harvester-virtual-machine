@@ -1,11 +1,6 @@
 formatter: markdown table
 
 content: |-
-  # Usage
-  ```hcl
-  {{ include "examples/basic/main.tf" }}
-  ```
-  
   {{ .Providers }}
   
   {{ .Modules }}

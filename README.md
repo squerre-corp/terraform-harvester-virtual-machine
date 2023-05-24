@@ -13,7 +13,6 @@ Using the modules requires the following pre-requisites:
  * Kubeconfig file of the Harvester cluster - [documentation](https://docs.harvesterhci.io/latest/faq/#how-can-i-access-the-kubeconfig-file-of-the-harvester-cluster)
 
 <!-- BEGIN_TF_DOCS -->
-
 # Usage
 ```hcl
 module "virtual_machine" {
