@@ -1,17 +1,14 @@
-locals {
-  name = lower(var.replicas != 1 ? "${var.name}-${replicas.index}-${random_string.name_suffix}" : "${var.name}-${random_string.name_suffix}")
-}
-
 resource "random_string" "name_suffix" {
   length  = 4
   special = false
+  lower   = true
 }
 
 resource "harvester_virtualmachine" "default" {
   count = var.replicas
 
-  name        = local.name
-  hostname    = local.name
+  name        = var.replicas != 1 ? "${var.name}-${count.index}-${random_string.name_suffix.id}" : "${var.name}-${random_string.name_suffix.id}"
+  hostname    = var.replicas != 1 ? "${var.name}-${count.index}-${random_string.name_suffix.id}" : "${var.name}-${random_string.name_suffix.id}"
   namespace   = var.namespace
   description = var.description
 

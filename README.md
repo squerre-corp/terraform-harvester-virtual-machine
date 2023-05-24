@@ -23,8 +23,8 @@ Using the modules requires the following pre-requisites:
 
 | Name | Version |
 |------|---------|
-| harvester | >= 0.6 |
-| random | n/a |
+| harvester | 0.6.2 |
+| random | 3.5.1 |
 
 
 

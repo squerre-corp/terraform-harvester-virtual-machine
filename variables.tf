@@ -5,7 +5,7 @@ variable "replicas" {
 
   validation  {
     error_message = "The amount of virtual machines to be created needs to be 1 or higher."
-    condition     = var.count >= 1
+    condition     = var.replicas >= 1
   }
 }
 
