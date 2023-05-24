@@ -38,7 +38,7 @@ variable "run_strategy" {
 }
 
 variable "machine_type" {
-  description = "Runstrategy for the virtual machine(s) (options: Always, RerunOnFailure, Manual, Halted)"
+  description = "Run strategy for the virtual machine(s) (options: Always, RerunOnFailure, Manual, Halted)"
   type        = string
   default     = "Always"
 }
@@ -58,7 +58,6 @@ variable "memory" {
 variable "reserved_memory" {
   description = "Amount of reserved memory to be assigned to the virtual machine(s)"
   type        = string
-  default     = "2Gi"
 }
 
 variable "ssh_keys" {
@@ -69,11 +68,13 @@ variable "ssh_keys" {
 variable "efi" {
   description = "Determines if EFI system partition is to exist on the virtual machines data storage"
   type        = bool
+  default     = true
 }
 
 variable "secure_boot" {
   description = "Determines if the virtual machines are to be booted in secure modus. EFI must be enabled to use this feature"
   type        = bool
+  default     = false
 }
 
 variable "network_interface" {
@@ -110,40 +111,18 @@ variable "disk" {
   default = null
 }
 
-variable "user_data" {
-  description = "The cloud init - user data to use for the virtual machine(s)"
-  type        = string
-  default     = ""
-}
-
-variable "user_data_base64" {
-  description = "The cloud init - user data in base64 to use for the virtual machine(s)"
-  type        = string
-  default     = ""
-}
-
-variable "user_data_secret_name" {
-  description = "The cloud init - user data secret name to use for the virtual machine(s)"
-  type        = string
-  default     = ""
-}
-
-variable "network_data" {
-  description = "The cloud init - network data to use for the virtual machine(s)"
-  type        = string
-  default     = ""
-}
-
-variable "network_data_base64" {
-  description = "The cloud init - network data in base64 to use for the virtual machine(s)"
-  type        = string
-  default     = ""
-}
-
-variable "network_data_secret_name" {
-  description = "The cloud init - user data secret name to use for the virtual machine(s)"
-  type        = string
-  default     = ""
+variable "cloudinit" {
+  description = "The cloud_init configuration to be used on the virtual machine(s)"
+  type = object({
+    user_data                = string
+    user_data_base64         = string
+    user_data_secret_name    = string
+    type                     = string
+    network_data             = string
+    network_data_base64      = string
+    network_data_secret_name = string
+  })
+  default = null
 }
 
 variable "tags" {

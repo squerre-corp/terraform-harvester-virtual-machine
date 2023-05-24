@@ -16,7 +16,50 @@ Using the modules requires the following pre-requisites:
 
 # Usage
 ```hcl
+module "virtual_machine" {
+  source = "../../"
 
+  replicas    = 3
+  name        = "kubernetes"
+  namespace   = "default"
+  description = "Virtual machines in the form of worker nodes for a Kubernetes cluster"
+
+  machine_type = "q35"
+
+  cpu    = 2
+  memory = "4Gi"
+
+  ssh_keys = []
+
+  network_interface {
+    name         = "vlan-9asj2l"
+    network_name = harvester_network.vlan-9asj2l.id
+  }
+
+  disk {
+    name        = "disk-9aulwi"
+    type        = "disk"
+    size        = "10Gi"
+    bus         = "virtio"
+    boot_order  = 1
+  }
+
+  disk {
+    name        = "cd-ais90d"
+    type        = "cd-rom"
+    size        = "10Gi"
+    bus         = "sata"
+    boot_order  = 1
+    image       = harvester_image.opensuse-15-4.id
+    auto_delete = true
+  }
+
+  cloudinit {
+    user_data = <<-EOF
+      #cloud-config
+      EOF
+  }
+}
 ```
 
 ## Providers
@@ -40,27 +83,22 @@ Using the modules requires the following pre-requisites:
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | description | Description for the virtual machine(s) | `string` | n/a | yes |
-| efi | Determines if EFI system partition is to exist on the virtual machines data storage | `bool` | n/a | yes |
 | namespace | Namespace in which the virtual machine(s) is/are to be placed | `string` | n/a | yes |
-| secure_boot | Determines if the virtual machines are to be booted in secure modus. EFI must be enabled to use this feature | `bool` | n/a | yes |
+| reserved_memory | Amount of reserved memory to be assigned to the virtual machine(s) | `string` | n/a | yes |
 | ssh_keys | List of SSH keys to be added to the virtual machine(s) | `list(any)` | n/a | yes |
+| cloudinit | The cloud_init configuration to be used on the virtual machine(s) | ```object({ user_data = string user_data_base64 = string user_data_secret_name = string type = string network_data = string network_data_base64 = string network_data_secret_name = string })``` | `null` | no |
 | cpu | Amount of cpu cores to be assigned to the virtual machine(s) | `number` | `1` | no |
 | disk | The disk(s) to be assigned to the virtual machine(s) | ```object({ name = string access_mode = bool auto_delete = number boot_order = string bus = string container_image_name = string existing_volume_name = string hot_plug = bool image = string size = string storage_class_name = string type = string volume_mode = string volume_name = string })``` | `null` | no |
-| machine_type | Runstrategy for the virtual machine(s) (options: Always, RerunOnFailure, Manual, Halted) | `string` | `"Always"` | no |
+| efi | Determines if EFI system partition is to exist on the virtual machines data storage | `bool` | `true` | no |
+| machine_type | Run strategy for the virtual machine(s) (options: Always, RerunOnFailure, Manual, Halted) | `string` | `"Always"` | no |
 | memory | Amount of memory to be assigned to the virtual machine(s) | `string` | `"2Gi"` | no |
 | name | Name prefix used when creating multiple virtual machines, if count is set to one the hyphen is trimmed from the name | `string` | `"virtual-machine"` | no |
-| network_data | The cloud init - network data to use for the virtual machine(s) | `string` | `""` | no |
-| network_data_base64 | The cloud init - network data in base64 to use for the virtual machine(s) | `string` | `""` | no |
-| network_data_secret_name | The cloud init - user data secret name to use for the virtual machine(s) | `string` | `""` | no |
 | network_interface | The network interface(s) to be assigned to the virtual machine(s) | ```object({ name = string mac_address = string model = string network_name = string type = string wait_for_lease = bool })``` | `null` | no |
 | replicas | Amount of virtual machine(s) to create for the configuration | `number` | `1` | no |
-| reserved_memory | Amount of reserved memory to be assigned to the virtual machine(s) | `string` | `"2Gi"` | no |
 | restart_after_update | Whether to restart the virtual machine(s) after updating | `bool` | `true` | no |
 | run_strategy | Run strategy for the virtual machine(s) (options: Always, RerunOnFailure, Manual, Halted) | `string` | `"Always"` | no |
+| secure_boot | Determines if the virtual machines are to be booted in secure modus. EFI must be enabled to use this feature | `bool` | `false` | no |
 | tags | Tags to be placed on the virtual machine(s) | `map(string)` | `{}` | no |
-| user_data | The cloud init - user data to use for the virtual machine(s) | `string` | `""` | no |
-| user_data_base64 | The cloud init - user data in base64 to use for the virtual machine(s) | `string` | `""` | no |
-| user_data_secret_name | The cloud init - user data secret name to use for the virtual machine(s) | `string` | `""` | no |
 
 ## Outputs
 

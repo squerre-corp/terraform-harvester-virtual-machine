@@ -54,14 +54,17 @@ resource "harvester_virtualmachine" "default" {
     }
   }
 
-  cloudinit {
-    user_data                = var.user_data
-    user_data_base64         = var.user_data_base64
-    user_data_secret_name    = var.user_data_secret_name
-    type                     = var.type
-    network_data             = var.network_data
-    network_data_base64      = var.network_data_base64
-    network_data_secret_name = var.network_data_secret_name
+  dynamic "cloudinit" {
+    for_each = var.cloudinit
+    content {
+      user_data                = cloudinit.value["user_data"]
+      user_data_base64         = cloudinit.value["user_data_base64"]
+      user_data_secret_name    = cloudinit.value["user_data_secret_name"]
+      type                     = cloudinit.value["type"]
+      network_data             = cloudinit.value["network_data"]
+      network_data_base64      = cloudinit.value["network_data_base64"]
+      network_data_secret_name = cloudinit.value["network_data_secret_name"]
+    }
   }
 
   tags = merge(
