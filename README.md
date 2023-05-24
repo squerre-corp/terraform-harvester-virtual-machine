@@ -1,7 +1,7 @@
 # terraform-harvester-virtual-machine
 
 <p align="center">
-  <img src="https://github.com/SquerreCorp/.github/blob/main/.assets/images/banner.png">
+  <img src="https://user-images.githubusercontent.com/73097785/240722566-1daea92e-ca3b-4a8e-9942-ce11f300daf6.png">
 </p>
 
 Terraform module which creates a virtual machines for a Suse Harvester cluster. 
