@@ -1,7 +1,6 @@
 variable "replicas" {
   description = "Amount of virtual machine(s) to create for the configuration"
   type        = number
-  default     = 1
 
   validation  {
     error_message = "The amount of virtual machines to be created needs to be 1 or higher."
@@ -12,7 +11,6 @@ variable "replicas" {
 variable "name" {
   description = "Name prefix used when creating multiple virtual machines, if count is set to one the hyphen is trimmed from the name"
   type        = string
-  default     = "virtual-machine"
 }
 
 variable "namespace" {
@@ -24,6 +22,7 @@ variable "namespace" {
 variable "description" {
   description = "Description for the virtual machine(s)"
   type        = string
+  default     = ""
 }
 
 variable "restart_after_update" {
@@ -64,6 +63,7 @@ variable "reserved_memory" {
 variable "ssh_keys" {
   description = "List of SSH keys to be added to the virtual machine(s)"
   type        = list(any)
+  default     = []
 }
 
 variable "efi" {
@@ -88,7 +88,6 @@ variable "network_interface" {
     type           = string
     wait_for_lease = bool
   })
-  default = null
 }
 
 variable "disk" {
@@ -109,7 +108,6 @@ variable "disk" {
     volume_mode          = string
     volume_name          = string
   })
-  default = null
 }
 
 variable "cloudinit" {
