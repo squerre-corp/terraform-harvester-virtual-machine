@@ -82,16 +82,16 @@ module "virtual_machine" {
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | description | Description for the virtual machine(s) | `string` | n/a | yes |
-| namespace | Namespace in which the virtual machine(s) is/are to be placed | `string` | n/a | yes |
 | reserved_memory | Amount of reserved memory to be assigned to the virtual machine(s) | `string` | n/a | yes |
 | ssh_keys | List of SSH keys to be added to the virtual machine(s) | `list(any)` | n/a | yes |
 | cloudinit | The cloud_init configuration to be used on the virtual machine(s) | ```object({ user_data = string user_data_base64 = string user_data_secret_name = string type = string network_data = string network_data_base64 = string network_data_secret_name = string })``` | `null` | no |
 | cpu | Amount of cpu cores to be assigned to the virtual machine(s) | `number` | `1` | no |
 | disk | The disk(s) to be assigned to the virtual machine(s) | ```object({ name = string access_mode = bool auto_delete = number boot_order = string bus = string container_image_name = string existing_volume_name = string hot_plug = bool image = string size = string storage_class_name = string type = string volume_mode = string volume_name = string })``` | `null` | no |
 | efi | Determines if EFI system partition is to exist on the virtual machines data storage | `bool` | `true` | no |
-| machine_type | Run strategy for the virtual machine(s) (options: Always, RerunOnFailure, Manual, Halted) | `string` | `"Always"` | no |
+| machine_type | The machine type for the virtual machine(s). | `string` | `"q35"` | no |
 | memory | Amount of memory to be assigned to the virtual machine(s) | `string` | `"2Gi"` | no |
 | name | Name prefix used when creating multiple virtual machines, if count is set to one the hyphen is trimmed from the name | `string` | `"virtual-machine"` | no |
+| namespace | Namespace in which the virtual machine(s) is/are to be placed | `string` | `"default"` | no |
 | network_interface | The network interface(s) to be assigned to the virtual machine(s) | ```object({ name = string mac_address = string model = string network_name = string type = string wait_for_lease = bool })``` | `null` | no |
 | replicas | Amount of virtual machine(s) to create for the configuration | `number` | `1` | no |
 | restart_after_update | Whether to restart the virtual machine(s) after updating | `bool` | `true` | no |

@@ -18,6 +18,7 @@ variable "name" {
 variable "namespace" {
   description = "Namespace in which the virtual machine(s) is/are to be placed"
   type        = string
+  default     = "default"
 }
 
 variable "description" {
@@ -38,9 +39,9 @@ variable "run_strategy" {
 }
 
 variable "machine_type" {
-  description = "Run strategy for the virtual machine(s) (options: Always, RerunOnFailure, Manual, Halted)"
+  description = "The machine type for the virtual machine(s)."
   type        = string
-  default     = "Always"
+  default     = "q35"
 }
 
 variable "cpu" {
